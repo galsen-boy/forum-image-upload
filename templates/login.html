@@ -1,0 +1,63 @@
+{{define "login"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Forum</title>
+    <link rel="stylesheet" href="../static/login.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="shortcut icon" href="../static/images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="content">
+        <div class="content-left">
+            <div class="form-wrapper">
+                <a href="/">
+
+                    <div class="logo">
+                        <img src="../static/images/logoForum.png" alt="Logo" />
+                    </div>
+                </a>
+                <h1 class="text-title">Log In</h1>
+                
+                <form action="" method="POST">
+
+                    <div class="field-group">
+                        <label class="label" for="txt-email">E-mail</label>
+                        <input class="input" type="email" id="txt-email" name="email" required/>
+                    </div>
+                    <div class="field-group">
+                        <div class="label-wrapper">
+                            <label class="label" for="txt-password">Password</label>
+                            </label>
+                        </div>
+                        <input class="input" type="password" id="txt-password" name="passwd" required/>
+                    </div>
+                    <div class="error_form" style="color: red; text-align: center;">{{.Error}}</div>
+
+                    <div class="field-group">
+                        <input class="btn-submit" type="submit" value="Log In" name="login" />
+                    </div>
+                </form>
+
+                <div class="field-group text-center">
+                    <div>Need an account? <a href="/register">Create an account</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="content-right-text">
+                <!-- <h2>CONNECT YOUR IDEAS, SHARE YOUR PASSIONS</h2> -->
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+{{end}}

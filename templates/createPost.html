@@ -1,0 +1,150 @@
+{{define "createPost"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forum</title>
+    <link rel="stylesheet" href="../static/createPost.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="shortcut icon" href="../static/images/favicon.png" type="image/x-icon">
+
+</head>
+
+<body>
+    <!-- header starts -->
+    {{template "header" .}}
+    <!-- header ends -->
+
+    <!-- main body starts -->
+    <div class="main__body">
+        <!-- sidebar starts -->
+        <div class="sidebar">
+            {{template "sidebar"}}
+        </div>
+        <!-- sidebar ends -->
+
+        <!-- feed starts -->
+        <div class="feed">
+            <!-- message sender starts -->
+            <div class="messageSender">
+                <div class="messageSender__top">
+                    <!-- <img class="user__avatar" src="../static/images/profile.png" alt="" /> -->
+                    <form action="/createPost" method="POST" class="post__content" enctype="multipart/form-data">
+                        <div class="success_mess" style="color: green; text-align: center; font-size: 20px;">
+                            {{.Success}} </div>
+
+                        <div class="title">
+                            <label for="messageSender__input">Title</label>
+                            <input class="messageSender__input" placeholder="Title" type="text" name="title_post"
+                                required />
+                        </div>
+                        <div class="descrip">
+                            <label for="messageSender__input ">Description</label>
+                            <textarea placeholder="What's on your mind?" type="text" name="content_post"
+                                required></textarea>
+                        </div>
+                        <div class="checkbox__wrapper">
+                            <div>
+                                <input type="checkbox" id="check" value="technologie" name="techno" />
+                                <label for="check">Technologie</label>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="checks" value="sport" name="sport" />
+                                <label for="checks">Sport</label>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="checkS" value="sante" name="sante" />
+                                <label for="checkS">Sante</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="checkM" value="musique" name="music" />
+                                <label for="checkM">Musique</label>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="checkN" value="news" name="news" />
+                                <label for="checkN">News</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="checko" value="other" name="other" checked />
+                                <label for="checko">Other</label>
+                            </div>
+
+                        </div>
+                        <div class="messageSender__bottom">
+                            <div class="messageSender__option">
+                                <input style="color: #FFB477" type="file" accept="image/*" id="upload-btn"
+                                    name="media_post" hidden>
+
+                                <label style="color: rgb(41, 114, 224)" class="material-icons" for="upload-btn">
+                                    photo_library
+                                </label>
+                                <!-- <h3>Photo</h3> -->
+                            </div>
+
+                            <div class="messageSender__option">
+                                <!-- <span style="color: #FFB477" class="material-icons"> send  </span> -->
+                                <input style="color: #FFB477" class="material-icons" type="submit" value="send"
+                                    name="send">
+                                <!-- <h3>Post</h3> -->
+                            </div>
+
+                        </div>
+                        <div class="error_form" style="color: red; text-align: center;">{{.Error}}</div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- message sender ends -->
+
+            <!-- post starts -->
+            <!-- <div class="post">
+                <div class="post__top">
+                    <img class="user__avatar post__avatar" src="../static/images/profile.png" alt="" />
+                    <div class="post__topInfo">
+                        <h3>Nicolas Faye</h3>
+                        <p>25 April at 20:30</p>
+                    </div>
+                </div>
+
+                <div class="post__bottom">
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis,
+                        at?
+                    </p>
+                </div>
+
+                <div class="post__image">
+                    <img src="../static/images/post_img.jpg" alt="" />
+                </div>
+
+                <div class="post__options">
+                    <div class="post__option">
+                        <span class="material-icons"> thumb_up </span>
+                        <p>Like</p>
+                    </div>
+
+                    <div class="post__option">
+                        <span class="material-icons"> chat_bubble_outline </span>
+                        <p>Comment</p>
+                    </div>
+                </div>
+            </div> -->
+            <!-- post ends -->
+        </div>
+        <!-- feed ends -->
+
+        <div style="flex: 0.33" class="widgets"> {{template "filter"}} </div>
+    </div>
+    <!-- main body ends -->
+
+
+</body>
+
+</html>
+{{end}}

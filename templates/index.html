@@ -1,0 +1,205 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forum</title>
+  <link rel="stylesheet" href="../static/style.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="shortcut icon" href="../static/images/favicon.png" type="image/x-icon">
+
+</head>
+
+<body>
+  <!-- header starts -->
+
+
+  {{template "header" .}}
+
+
+  <!-- header ends -->
+
+  <!-- main body starts -->
+  <div class="main__body">
+    <!-- sidebar starts -->
+    <div class="sidebar">
+      {{template "sidebar"}}
+    </div>
+    <!-- sidebar ends -->
+
+    <!-- feed starts -->
+    <div class="feed">
+      <a href="/createPost"> <span class="material-icons add__post"> add </span></a>
+      <!-- message sender starts -->
+      <!-- message sender ends -->
+
+      <!-- post starts -->
+      {{range .Posts}}
+      <div class="post" id="p{{.ID}}">
+        <div class="post__top">
+          <img class="user__avatar post__avatar" src="../static/images/profile.png" alt="" />
+          <div class="post__topInfo">
+            <h3 style="color: #ffb477;">{{.NameUser}} <span style="color: gray; font-size: 12px; font-weight: 500;">({{.MailUser}})</span></h3>
+            <p>Posted on <span style="color: black;">{{.Date}}</span></p>
+            <p> Categorie: {{range .Categorie}}<span style="color: black;"> {{.}}</span> {{end}}</p>
+          </div>
+        </div>
+        <div class="post__bottom">
+          <h3>{{.Title}}</h3>
+        </div>
+        <div class="post__bottom">
+          <pre class="pre">{{.Content}}</pre>
+        </div>
+
+        <div class="post__image">
+          <img src="../assets/{{.Media}}" alt="" />
+        </div>
+
+        <div class="post__options">
+          <div class="post__option">
+            <form action="/like" method="post">
+              <input type="hidden" name="idpost" value="{{.ID}}">
+              <!-- <label for="like"><span class="material-icons"> thumb_up </span></label> -->
+              <input type="submit" name="like" class="material-icons" value="thumb_up">
+            </form>
+            <p>{{len .Like}}</p>
+          </div>
+          <div class="post__option" style="display: flex;">
+            <form action="/like" method="post">
+              <input type="hidden" name="idpost" value="{{.ID}}">
+              <!-- <label for="dislike" class="dislikes"> <span class="material-icons"> thumb_down </span></label> -->
+              <input type="submit" id="dislike" class="material-icons" name="dislike" value="thumb_down">
+            </form>
+            <p>{{len .Dislike}}</p>
+          </div>
+          <div class="post__option">
+            <label for="{{.ID}}" style="display: flex;"><span class="material-icons"> chat_bubble_outline </span>
+              <p>{{len .Comments}}</p>
+            </label>
+          </div>
+        </div>
+        <div class="messageSender__top">
+          <form action="/comment" method="post">
+            <input type="hidden" name="id" value="{{.ID}}">
+            <div></div>
+            <input class="messageSender__input" placeholder="Your comment ..." type="text" name="content_comment"
+              required />
+            <input class="btn__comment" type="submit" name="comment" value="Comment" />
+          </form>
+        </div>
+        <button class="seeMoreButton" id="{{.ID}}" style="float: right; margin-top: 30px; padding: 5px;" hidden>See
+          More</button>
+        <div class="comments">
+
+          {{range .Comments}}
+          <div class="comment__content" id="l{{.Id_comment}}">
+
+            <span>{{.Name_User}}</span>
+            <pre class="comment__user">{{.Content}}</pre>
+
+            <form action="/like_comment" method="post" style="display: flex; justify-content: end; column-gap: 15px;">
+              <input type="hidden" name="idcomment" value="{{.Id_comment}}">
+              <!-- <label for="dislike" class="dislikes"> <span class="material-icons"> thumb_down </span></label> -->
+              <div style="display: flex; column-gap: 8px;">
+                <input type="submit" id="like_comment" class="material-icons" name="like_comment" value="thumb_up">
+                <p> {{len .Like}} </p>
+              </div>
+              <div style="display: flex; column-gap: 8px;">
+                <input type="submit" id="dislike_comment" class="material-icons" name="dislike_comment"
+                  value="thumb_down">
+                <p> {{len .Dislike}} </p>
+              </div>
+            </form>
+          </div>
+          {{end}}
+        </div>
+      </div>
+      {{end}}
+      <!-- post ends -->
+      <p style="margin-top: 100px;"> . </p>
+    </div>
+    <!-- feed ends -->
+
+    <div style="flex: 0.33;" class="widgets">
+      <h2>Filter By:</h2>
+      <form action="/filter" method="POST" class="form">
+        <h3 class="checkbox-group-legend">Categories</h3>
+        <div class="checkbox-group">
+          <div class="checkbox">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" id="checked" value="technologie" name="techno" />
+              <span class="checkbox-tile"> <span class="checkbox-icon material-icons">computer</span>
+                <span class="checkbox-label">Techs</span>
+              </span>
+            </label>
+          </div>
+          <div class="checkbox">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" id="checked" value="sport" name="sport" />
+              <span class="checkbox-tile">
+                <span class="checkbox-icon material-icons">sports_soccer
+                </span>
+                <span class="checkbox-label">Sport</span>
+              </span>
+            </label>
+          </div>
+          <div class="checkbox">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" id="checked" value="sante" name="sante" />
+              <span class="checkbox-tile">
+                <span class="checkbox-icon material-icons">local_hospital
+                </span>
+                <span class="checkbox-label">Sante</span>
+              </span>
+            </label>
+          </div>
+          <div class="checkbox">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" id="checked" value="musique" name="music" />
+              <span class="checkbox-tile">
+                <span class="checkbox-icon material-icons">music_note
+                </span>
+                <span class="checkbox-label">Musique</span>
+              </span>
+            </label>
+          </div>
+          <div class="checkbox">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" id="checked" value="news" name="news" />
+              <span class="checkbox-tile">
+                <span class="checkbox-icon material-icons">feed
+                </span>
+                <span class="checkbox-label">News</span>
+              </span>
+            </label>
+          </div>
+          <div class="checkbox">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox-input" id="checked" value="other" name="other" />
+              <span class="checkbox-tile">
+                <span class="checkbox-icon material-icons">more_horiz
+                </span>
+                <span class="checkbox-label">Other</span>
+              </span>
+            </label>
+          </div>
+        </div>
+        <!-- <h3 class="checkbox-group-legend">Likes</h3> -->
+
+        <input type="submit" id="apply-filter" class="apply_btn" value="Apply">
+
+      </form>
+
+    </div>
+
+  </div>
+  <!-- main body ends -->
+
+
+</body>
+<script src="../static/js/index.js"></script>
+
+</html>
+{{end}}

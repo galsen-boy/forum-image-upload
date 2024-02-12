@@ -1,0 +1,131 @@
+{{define "profil"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forum</title>
+    <link rel="stylesheet" href="../static/profile.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="shortcut icon" href="../static/images/favicon.png" type="image/x-icon">
+
+</head>
+
+<body>
+    <!-- header starts -->
+    {{template "header" .}}
+    <!-- header ends -->
+
+    <!-- main body starts -->
+    <div class="main__body">
+        <!-- sidebar starts -->
+        <div class="sidebar">
+            {{template "sidebar"}}
+        </div>
+        <!-- sidebar ends -->
+
+        <!-- feed starts -->
+        <div class="feed">
+            <!-- post starts -->
+            <div class="infos">
+                <div class="profil">
+                    <img src="../static/images/user.png" alt="" srcset="">
+                </div>
+                <div class="username" style="margin-top: 50px;">
+                    <h3>{{.Infos.NameUserConnect}}</h3>
+                    <div class="post__btn">
+                        <a href="/createPost" class="material-icon"
+                            style="display: flex; justify-content: center; align-items: center;">
+                            <span class="material-icons">add</span>
+                        </a>
+                    </div>
+                    <p style="color: gray; margin-bottom: 5px; display: flex; column-gap: 6px;"> <span
+                            class="material-icons">mail</span>
+                        {{.Infos.Mail}} </p>
+                </div>
+
+            </div>
+
+            <div class="myposts__div">
+                <h3 class="myposts">My Posts</h3>
+            </div>
+
+
+            {{range .Posts }}
+            <div class="post">
+                <div class="post__top">
+                    <img class="user__avatar post__avatar" src="../static/images/profile.png" alt="" />
+                    <div class="post__topInfo">
+                        <h3 style="color: #ffb477;">{{.NameUser}}</h3>
+                        <p>Posted on <span style="color: black;">{{.Date}}</span></p>
+                        <p> Categorie: {{range .Categorie}}<span style="color: black;"> {{.}}</span> {{end}}</p>
+                    </div>
+                </div>
+                <div class="post__bottom">
+                    <h3>{{.Title}}</h3>
+                </div>
+                <div class="post__bottom">
+                    <pre class="pre">{{.Content}}</pre>
+                </div>
+
+                <div class="post__image">
+                    <img src="../assets/{{.Media}}" alt="" />
+                </div>
+
+                <div class="post__options">
+                    <div class="post__option">
+                        <form action="/like" method="post">
+                            <input type="hidden" name="idpost" value="{{.ID}}">
+                            <label for="like"><span class="material-icons"> thumb_up </span></label>
+                            <!-- <input type="submit" name="like" class="material-icons" value="thumb_up"> -->
+                        </form>
+                        <p>{{len .Like}}</p>
+                    </div>
+                    <div class="post__option" style="display: flex;">
+                        <form action="/like" method="post">
+                            <input type="hidden" name="idpost" value="{{.ID}}">
+                            <label for="dislike" class="dislikes"> <span class="material-icons"> thumb_down
+                                </span></label>
+                            <!-- <input type="submit" id="dislike" class="material-icons" name="dislike" value="thumb_down"> -->
+                        </form>
+                        <p>{{len .Dislike}}</p>
+                    </div>
+                    <div class="post__option">
+                        <label for="seeMoreButton" style="display: flex;"><span class="material-icons">
+                                chat_bubble_outline </span>
+                            <p>{{len .Comments}}</p>
+                        </label>
+                    </div>
+                </div>
+                <div class="messageSender__top">
+                    <!-- <form action="/comment" method="post">
+            <input type="hidden" name="id" value="{{.ID}}">
+            <div></div>
+            <input class="messageSender__input" placeholder="Your comment ..." type="text" name="content_comment"
+              required />
+            <input class="btn__comment" type="submit" name="comment" value="commentez" />
+          </form> -->
+                </div>
+                <!-- <button class="seeMoreButton" id="seemore" style="float: right; margin-top: 30px; padding: 5px;">See
+          More</button>
+        <div class="comments">
+
+        </div> -->
+            </div>
+            {{end}}
+            <!-- post ends -->
+            <p style="margin-top: 100px;"> . </p>
+            <!-- post ends -->
+        </div>
+        <!-- feed ends -->
+
+        <div style="flex: 0.33" class="widgets"> {{template "filter"}} </div>
+    </div>
+    <!-- main body ends -->
+
+
+</body>
+
+</html>
+{{end}}

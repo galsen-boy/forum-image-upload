@@ -1,0 +1,18 @@
+CREATE TABLE belong ( id_post INT, id_category INT, PRIMARY KEY (id_post, id_category), FOREIGN KEY (id_post) REFERENCES posts(id), FOREIGN KEY (id_category) REFERENCES category(id) )
+
+CREATE TABLE "category" ( "id" INTEGER UNIQUE, "name_category" TEXT, PRIMARY KEY("id" AUTOINCREMENT) )
+
+CREATE TABLE "comment" ( "id" INTEGER UNIQUE, "content_comment" TEXT, "id_post" INTEGER, "id_user" INTEGER, PRIMARY KEY("id" AUTOINCREMENT), FOREIGN KEY("id_post") REFERENCES "posts"("id"), FOREIGN KEY("id_user") REFERENCES "users"("id") )
+
+CREATE TABLE "likes_comment" ( "id" INTEGER, "id_comment" INTEGER, "id_user" INTEGER, "isLike" INTEGER, PRIMARY KEY("id" AUTOINCREMENT), FOREIGN KEY("id_comment") REFERENCES "comment"("id"), FOREIGN KEY("id_user") REFERENCES "users"("id") )
+
+
+CREATE TABLE "likes_post" ( "id" INTEGER, "id_post" INTEGER, "id_user" INTEGER, "isLike" INTEGER, PRIMARY KEY("id" AUTOINCREMENT), FOREIGN KEY("id_post") REFERENCES "posts"("id"), FOREIGN KEY("id_user") REFERENCES "users"("id") )
+
+CREATE TABLE "posts" ( "id" INTEGER UNIQUE, "title_post" TEXT, "content_post" TEXT, "media_post" TEXT, "date_post" TEXT, "id_user" INTEGER, PRIMARY KEY("id" AUTOINCREMENT), FOREIGN KEY("id_user") REFERENCES "users"("id") )
+
+CREATE TABLE sqlite_sequence(name,seq)
+
+CREATE TABLE "users" ( "id" INTEGER UNIQUE, "name_user" TEXT, "mail_user" TEXT, "password_user" TEXT, PRIMARY KEY("id" AUTOINCREMENT) )
+
+CREATE TABLE sessions( id TEXT PRIMARY KEY, id_user INT, name_user TEXT, expiration datetime, FOREIGN KEY (id_user) REFERENCES users(id), FOREIGN KEY (name_user) REFERENCES users(name_user) )
